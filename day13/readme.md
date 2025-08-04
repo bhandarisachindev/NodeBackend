@@ -1,4 +1,4 @@
-#📁 In This Folder
+# 📁 In This Folder
 Created a user model and performed basic user login actions.
 This is just for practice and not very important, so you can skip it and continue from Day 14 if you prefer.
 
