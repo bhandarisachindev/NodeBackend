@@ -1,3 +1,22 @@
+# Middlewares
+```
+Postman
+|
+|---- Request ---> [ app ]
+|
+v
+[ middleware ]
+|
+v
+[ Router ]
+|
+v
+[ API ]
+|
+v
+<--- Response ---------
+```
+
 # Project Structure - DAY11
 
 
