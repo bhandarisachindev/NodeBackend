@@ -102,7 +102,7 @@ require('dotenv').config();
 
 
 
-### 2. POST /register – User Registration
+# 2. POST /register – User Registration      JWT HERE
 ``` js //
 router.post("/register", async (req, res) => {
   const { username, password } = req.body;
