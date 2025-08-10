@@ -1,6 +1,5 @@
 const userModel=require('../models/user.model');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 const bcrypt = require('bcryptjs');
 
 
@@ -22,27 +21,24 @@ async function registerController(req,res){
     password: await bcrypt.hash(password,10)
   })
 
-  const token= jwt.sign({id:user._id},process.env.JWT_SECRET);
-  res.cookie("token",token);
-
   res.status(201).json({
     message:"user Created"
   })
 }
-
+  
 async function loginController(req,res) {
   const {username,password}=req.body;
-
   const user=await userModel.findOne({
     username
   });
+    
 
   if(!user){
     return res.status(400).json({
       message:"user not found."
     })
   }
-
+  console.log(user);
   const isMatch = await bcrypt.compare(password, user.password);
 
   if(!isMatch){
@@ -51,7 +47,7 @@ async function loginController(req,res) {
     })
   }
 
-  const token= jwt.sign({password:user._id},process.env.JWT_SECRET);
+  const token= jwt.sign({id:user._id},process.env.JWT_SECRET);
   res.cookie("token",token);
 
   res.status(201).json({

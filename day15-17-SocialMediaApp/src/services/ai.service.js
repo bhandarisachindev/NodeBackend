@@ -1,15 +1,27 @@
-const { GoogleGenAI } =require('@google/genai') ;
-require('dotenv').config();
-const ai = new GoogleGenAI({
-  apiKey:`${process.env.GEMINI_API_KEY}`
-});
+const { GoogleGenAI } =require('@google/genai');
+require("dotenv").config() ;
 
-async function main() {
+const ai = new GoogleGenAI({});
+
+async function generateCaption(base64Image){
+  const contents = [
+  {
+    inlineData: {
+      mimeType: "image/jpeg",
+      data: base64Image,
+    },
+  },
+  { text: "Caption this image." },
+  ];  
+
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    contents: "Explain how AI works in a few words",
+    contents: contents,
+    config:{
+      systemInstruction:"You are an expert at generating captions for images,you generate  single sentence captions that are descriptive and engaging, you use hashtags and emojis to enhance the captions."
+    }
   });
-  console.log(response.text);
-}
+  return response.text;
+} 
 
-main();
+module.exports= generateCaption;  

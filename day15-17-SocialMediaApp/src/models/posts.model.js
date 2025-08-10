@@ -3,13 +3,15 @@ const mongoose=require('mongoose');
 const postsSchema= new mongoose.Schema(
   {
     image:String,
+    caption:String,
     title:{},
     user:{
       type: mongoose.Schema.Types.ObjectId,
-      ref:"users"
+      ref:"user"
     }
   }
 )
 
-const postsModel=mongoose.model("posts",postsSchema);
-module.exports=postsModel;
+const postsModel=mongoose.model("post",postsSchema);
+
+module.exports=postsModel;  
