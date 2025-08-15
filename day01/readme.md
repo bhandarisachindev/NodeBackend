@@ -1,45 +1,33 @@
-# Node.js – Basic HTTP Server
+# Simple Node.js HTTP Server
 
----
+This project is a basic HTTP server built with Node.js. It responds with `"Hello"` to every incoming request.
 
-## 1. Import HTTP Module
-```js
-const http = require('http');
-Purpose: Brings in Node.js' built-in http module.
+## How to Run
 
-Allows you to create a web server without any external libraries.
+1. Make sure you have [Node.js](https://nodejs.org/) installed.
+2. Save the following code in a file, e.g., `server.js`:
 
-2. Create Server
-const server = http.createServer((req, res) => {
-  res.end("Hello");
-});
-http.createServer() → Creates a server instance.
-```
-Callback Parameters:
+    ```javascript
+    const http = require('http');  //imports http
 
-req → Request object (information from the client).
+    const server = http.createServer((req, res) => {  //create a server with a response Hello for every request
+      res.end("Hello");
+    });
 
-res → Response object (used to send data back to client).
+    server.listen(3000, () => {   //starts a server
+      console.log("server is running on port 3000.");
+    });
+    ```
 
-res.end("Hello") → Sends "Hello" as the response and ends the request.
+3. Start the server:
 
-3. Start the Server
-```js
-server.listen(3000, () => {
-  console.log("server is running on port 3000.");
-});
-```
-server.listen(port, callback) → Binds server to a port (here, 3000) and starts listening for requests.
+    ```
+    node server.js
+    ```
 
-Callback → Runs once the server successfully starts.
+4. Open your browser and go to [http://localhost:3000](http://localhost:3000). You should see `Hello` displayed.
 
-Console Log → Confirms that server is running.
+## How it Works
 
-4. Flow
-Client sends a request to http://localhost:3000.
-
-Server receives request → Runs the callback inside createServer().
-
-Sends back "Hello" as the response.
-
-Connection closes.
+- The server listens on port 3000.
+- For every HTTP request, it responds with the text `"Hello"`.

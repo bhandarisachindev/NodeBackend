@@ -15,14 +15,14 @@ app.post("/notes",(req,res)=>{
     });
 });
 
-app.patch("/notes",(req,res)=>{
+// app.patch("/notes",(req,res)=>{        we will learn in day 4
 
-});
+// });
 
 
-app.delete("/notes",(req,res)=>{
+// app.delete("/notes",(req,res)=>{
 
-});
+// });
 
 app.listen(3000,()=>{
   console.log("server is running on port 3000.");

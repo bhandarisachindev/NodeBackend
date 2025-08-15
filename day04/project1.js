@@ -11,7 +11,7 @@ app.post("/notes",(req,res)=>{   //to add new notes in json format  {title:"",co
   
 res.json({message:"Note created succesully."});
 });
-  
+
 app.patch("/notes/:index",(req,res)=>{ // to edit a note
   const index=req.params.index;
   const {title,content}=req.body;
