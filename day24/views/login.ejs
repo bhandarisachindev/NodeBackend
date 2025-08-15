@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/theme.css">
+  <link rel="stylesheet" href="/style/authform.css">
+</head>
+<body>
+  <main class="auth-container">
+    <form class="auth-form" method="POST" action="/auth/login">
+      <h1 class="form-title">Login</h1>
+      <label>
+        <span>Email/Username</span>
+        <input type="text" name="email_username" required />
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" required />
+      </label>
+      <button type="submit" class="submit-btn">Log In</button>
+      <a href="/auth/register" class="secondary-btn">Don't have an account? Sign up</a>
+    </form>
+  </main>
+  <script src="/script/script.js"></script>
+</body>
+</html>

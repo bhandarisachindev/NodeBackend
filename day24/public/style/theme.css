@@ -1,0 +1,23 @@
+:root {
+  --primary-bg: #fff;
+  --primary-text: #222;
+  --accent: #2563eb;
+  --input-bg: #f3f4f6;
+  --input-border: #d1d5db;
+  --input-text: #222; /* Added input text color */
+  --border-radius: 8px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-bg: #1a2233;
+    --primary-text: #e0e7ef;
+    --accent: #60a511;
+    --input-bg: #232f47;
+    --input-border: #39507a;
+    --input-text: #e0e7ef; /* Added input text color for dark */
+    --shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+}
