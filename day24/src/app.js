@@ -5,7 +5,7 @@ const indexRoutes=require('./routes/index.routes');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-app.set("view engine","ejs");  //to view ejs
+app.set("view engine","ejs");  //This tells Express which template engine to use when rendering views.
 app.use(express.static('public'));
 
 app.use(express.json());

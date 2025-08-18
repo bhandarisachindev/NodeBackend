@@ -16,7 +16,7 @@ body {
   padding: 2rem 1rem;
 }
 
-.auth-form {
+.auth-form{
   background: var(--primary-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);

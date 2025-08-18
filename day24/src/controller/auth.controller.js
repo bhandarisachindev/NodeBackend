@@ -49,6 +49,10 @@ async function postLoginController(req,res){
       {username:email_username}
     ]
   })
+
+  if(!user){
+    res.status(401).json({message:"user not found."})
+  }
   
   const isValidPass= bcrypt.compare(password,user.password);
 
