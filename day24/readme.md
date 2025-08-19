@@ -50,7 +50,7 @@ You serve it using:
 app.use(express.static('public'));
 
 ### **2. Why we need it**
-a) Browser can access files directly
+***a) Browser can access files directly***
 
 Files like CSS, JS, and images need to be loaded by the browser.
 
@@ -61,7 +61,7 @@ Example:
 public/css/style.css → accessible via <link rel="stylesheet" href="/css/style.css">
 views/index.ejs → not directly accessible by browser
 ```
-**b) Separation of concerns**
+***b) Separation of concerns***
 
 HTML/EJS templates → structure and content.
 
@@ -69,17 +69,12 @@ CSS/JS → styling and behavior.
 
 Keeping them in public keeps the project organized and maintainable.
 
-**c) Efficiency and caching**
+***c) Efficiency and caching***
 
 Static assets in the public folder can be cached by the browser, making pages load faster.
 
 Express can serve them efficiently without processing them like EJS templates.
 
-**d) Security**
-
-EJS templates can contain server-side code; you don’t want the browser to access those directly.
-
-Static public files do not run server code, so they are safe to expose.
 
 ### **3. How it works**
 app.use(express.static('public'));
