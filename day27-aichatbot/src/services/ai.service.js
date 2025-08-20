@@ -17,4 +17,17 @@ async function geminiChat(message) {
   return response.text
 }
 
-module.exports=geminiChat;
+async function generateVector(content) {
+  const response = await ai.models.embedContent({
+    model: "gemini-embedding-001",
+    contents: content,
+    config: {
+      outputDimensionality: 768
+    },
+  });
+
+  return response.embeddings[0].values;  // returns the vector
+}
+
+
+module.exports={geminiChat,generateVector};
