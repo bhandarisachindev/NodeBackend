@@ -2,7 +2,6 @@ const app = require("./src/app");
 const {createServer }= require('http');
 const { Server } = require("socket.io");
 const aiResponse = require("./src/services/ai.service");
-const { text } = require("stream/consumers");
 require('dotenv').config();
 
 const httpServer=createServer(app);

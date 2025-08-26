@@ -29,8 +29,20 @@ async function initSocketServer(httpServer) {
 
   io.on("connection",(socket)=>{
     socket.on("ai-message",async (messagePayload)=>{
-      const {content,messageId}=messagePayload;
 
+      const {content,messageId}=messagePayload;
+      /////////////////////////
+        const [resMsgModel,vectors]=await Promise.all([
+          messageModel.create({
+            chat:messageId,
+            user:socket.user.id,
+            role:"user",
+            content:content
+          }),
+          generateVector(content) 
+     ])
+
+      /*
       const resMsgModel=  await messageModel.create({
         chat:messageId,
         user:socket.user.id,
@@ -38,8 +50,8 @@ async function initSocketServer(httpServer) {
         content:content
       })
       const vectors=await generateVector(content);
-
-      await createMemory({
+        */
+       await createMemory({
         vectors,
         messageId:resMsgModel._id,
         metadata:{
@@ -47,24 +59,29 @@ async function initSocketServer(httpServer) {
           user:socket.user.id,
           text:content
         }
-      })
+      }) 
+      const [memory,chatHistory]=await Promise.all([
+        queryMemory({
+          queryVector:vectors,
+          limit:5,
+          metadata:{} 
+        }),
+        messageModel.find({
+          chat: messageId
+        }).sort({createdAt:-1}).limit(20).lean().then(msg=>msg.reverse())
+      ])
 
+
+      /*
       const memory=await queryMemory({
         queryVector:vectors,
         limit:5,
-        metadata:{}
+        metadata:{} 
       })
-      console.log("memory",memory)
-      
-      const chatHistory=  (await messageModel.find({
+            const chatHistory=  (await messageModel.find({
         chat: messageId
       }).sort({createdAt:-1}).limit(20).lean()).reverse()  //to get only last 20 messages
-
-      const stm=chatHistory.map(chat => ({
-        role: chat.role,
-        parts: [{ text: chat.content }]
-      }));
-
+      */
       const ltm=[
         {
           role:"user",
@@ -73,11 +90,31 @@ async function initSocketServer(httpServer) {
           }]
         }
       ]
-
+      
+      const stm=chatHistory.map(chat => ({
+        role: chat.role,
+        parts: [{ text: chat.content }]
+      }));
 
 
       const aiRes = await geminiChat([...ltm,...stm]);
 
+      socket.emit("ai-message-res",{
+        messageId:messageId,
+        content:aiRes
+      });
+
+      const [aiMsgRes,resVectors]=await Promise.all([
+        messageModel.create({
+          chat:messageId,
+          user:socket.user.id,
+          role:"model",
+          content:aiRes
+        }),
+        generateVector(aiRes)
+      ])
+
+      /*
       const aiMsgRes= await messageModel.create({
         chat:messageId,
         user:socket.user.id,
@@ -86,6 +123,7 @@ async function initSocketServer(httpServer) {
       })
 
       const resVectors=await generateVector(aiRes);
+      */
       
       await createMemory({
           vectors: resVectors,
@@ -96,15 +134,6 @@ async function initSocketServer(httpServer) {
             text:aiRes
           }
       })
-
-
-      socket.emit("ai-message-res",{
-        messageId:messageId,
-        content:aiRes,
-        ltm,
-        stm
-      });
-
     })  
   })
 }
