@@ -107,12 +107,19 @@ const Home = () => {
       content: trimmed
     })
 
-
+    // try {
+    //   const reply = await fakeAIReply(trimmed);
+    //   dispatch(addAIMessage(activeChatId, reply));
+    // } catch {
+    //   dispatch(addAIMessage(activeChatId, 'Error fetching AI response.', true));
+    // } finally {
+    //   dispatch(sendingFinished());
+    // }
   }
 
   const getMessages = async (chatId) => {
 
-   const response = await  axios.get(`https://cohort-1-project-chat-gpt.onrender.com/api/chat/messages/${chatId}`, { withCredentials: true })
+   const response = await  axios.get(`http://localhost:3000/api/chat/messages/${chatId}`, { withCredentials: true })
 
    console.log("Fetched messages:", response.data.messages);
 
@@ -145,8 +152,8 @@ return (
       {messages.length === 0 && (
         <div className="chat-welcome" aria-hidden="true">
           <div className="chip">Early Preview</div>
-          <h1>Key-I Ai</h1>
-          <p>From quick explanations to deep insights, Key-I AI helps you unlock knowledge, spark ideas, and discover smarter solutions anytime.</p>
+          <h1>ChatGPT Clone</h1>
+          <p>Ask anything. Paste text, brainstorm ideas, or get quick explanations. Your chats stay in the sidebar so you can pick up where you left off.</p>
         </div>
       )}
       <ChatMessages messages={messages} isSending={isSending} />
